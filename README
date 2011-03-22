@@ -1,0 +1,31 @@
+Example file for https://github.com/pmuellr/weinre/issues/43
+
+Adjust IP address for weirne server in index.html
+
+Ensure web server is returning mime-type cache/manifest for cache.manifest. For Apache:
+  AddType text/cache-manifest .manifest
+  
+Check mime type with curl
+$ curl -I http://localhost/weinre-offline/cache.manifest
+HTTP/1.1 200 OK
+Date: Tue, 22 Mar 2011 00:30:29 GMT
+Server: Apache/2.2.15 (Unix) mod_ssl/2.2.15 OpenSSL/0.9.8l DAV/2 PHP/5.3.3
+Last-Modified: Tue, 22 Mar 2011 00:14:33 GMT
+ETag: "76b6db-19-49f0720ef8c40"
+Accept-Ranges: bytes
+Content-Length: 25
+Content-Type: text/cache-manifest
+
+Ensure the offline application is working.  If there is a offline configuration problem, weinre works OK.
+  * Load http://192.168.1.123/weinre-offline/index.html
+  * Stop apache
+  * Ensure page reloads without error
+
+When http://192.168.1.123/weinre-offline/index.html is loaded on an iPad OS 4.3, the client initially shows up in the weinre console but then disappears.
+Similar results were seen with Chrome 10.0.648.151 on OS X
+
+Running weinre on a different server than apache did not seem to help
+
+If you make changes to the index.html, you'll need to edit the manifest or empty the browser cache before you can see the changes.
+
+Removing manifest="cache.manifest" from html allows weinre to work. (You might need to delete the browser cache first)
