@@ -1,4 +1,7 @@
 CACHE MANIFEST
 index.html
 
-# version: 1
+NETWORK:
+http://192.168.117.189:8080/target/target-script-min.js
+
+# version: 2
